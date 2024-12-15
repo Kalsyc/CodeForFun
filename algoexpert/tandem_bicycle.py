@@ -1,0 +1,27 @@
+"""
+A tandem bicycle is a bicycle that's operated by two people: person A and person B. Both people pedal the bicycle, but the person that pedals faster dictates the speed of the bicycle. So if person A pedals at a speed of 5, and person B pedals at a speed of 4, the tandem bicycle moves at a speed of 5 (i.e., tandemSpeed = max(speedA, speedB)).
+
+You're given two lists of positive integers: one that contains the speeds of riders wearing red shirts and one that contains the speeds of riders wearing blue shirts. Each rider is represented by a single positive integer, which is the speed that they pedal a tandem bicycle at. Both lists have the same length, meaning that there are as many red-shirt riders as there are blue-shirt riders. Your goal is to pair every rider wearing a red shirt with a rider wearing a blue shirt to operate a tandem bicycle.
+
+Write a function that returns the maximum possible total speed or the minimum possible total speed of all of the tandem bicycles being ridden based on an input parameter, fastest. If fastest = true, your function should return the maximum possible total speed; otherwise it should return the minimum total speed.
+
+"Total speed" is defined as the sum of the speeds of all the tandem bicycles being ridden. For example, if there are 4 riders (2 red-shirt riders and 2 blue-shirt riders) who have speeds of 1, 3, 4, 5, and if they're paired on tandem bicycles as follows: [1, 4], [5, 3], then the total speed of these tandem bicycles is 4 + 5 = 9.
+"""
+
+def tandemBicycle(redShirtSpeeds, blueShirtSpeeds, fastest):
+    redShirtSpeeds.sort(reverse=fastest)
+    blueShirtSpeeds.sort()
+    result = 0
+    for i in range(len(redShirtSpeeds)):
+        result += max(redShirtSpeeds[i], blueShirtSpeeds[i])
+    return result
+
+"""
+Time Complexity: O(nlogn); Space Complexity: O(1)
+The time complexity is O(nlogn) where n is the number of riders in each list.
+The space complexity is O(1) since we are not using any extra space.
+
+The idea is to sort the two input lists in ascending order if fastest is False and in descending order if fastest is True. 
+This way, we can pair the riders with the fastest speeds together to maximize the total speed or pair the riders with the slowest speeds together to minimize the total speed.
+We then iterate through the two lists and calculate the total speed by summing up the maximum speed of each pair of riders.
+"""
